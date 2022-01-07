@@ -1,5 +1,6 @@
 ﻿using System;using System.Collections;
 using System.Collections.Generic;
+using MessagePipe;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -20,6 +21,8 @@ public class FlappyCubeInstaller : MonoInstaller
     
     public override void InstallBindings()
     {
+        Container.Bind<MessagePipeManager>().AsSingle().NonLazy();
+        
         Container.BindInstance(Cube).WithId("Player").AsCached().NonLazy();
         Container.BindInstance(Cube.GetComponent<Rigidbody>()).AsCached();
         Container.BindInstance(InstructionPanelObject).WithId("InstructionPanel").AsCached();
@@ -44,5 +47,6 @@ public class FlappyCubeInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<ObstacleMover>().AsSingle();
         Container.BindInterfacesAndSelfTo<ObstacleDespawner>().AsSingle();
     }
+
 }
 

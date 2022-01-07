@@ -1,30 +1,29 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using MessagePipe;
 using UnityEngine;
 using Zenject;
 
 public class Cube : MonoBehaviour
 {
-    private ObstacleCollision _obstacleCollision;
-    private PointScoring _pointScoring;
+    private IPublisher<string> stringPublisher;
     
     [Inject]
-    public void Init(ObstacleCollision collision, PointScoring pointScore)
+    public void Init(IPublisher<string> messagePipeManager)
     {
-        this._obstacleCollision = collision;
-        this._pointScoring = pointScore;
+        this.stringPublisher = messagePipeManager;
     }
     
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Obstacle"))
-            _obstacleCollision.Collide();
+            stringPublisher.Publish("Obstacle Collide");
     }
 
     private void OnTriggerEnter(Collider other)
     {
-       if (other.gameObject.CompareTag("Point"))
-            _pointScoring.AddScore();
+        if (other.gameObject.CompareTag("Point"))
+            stringPublisher.Publish("Point Scored");
     }
 }
