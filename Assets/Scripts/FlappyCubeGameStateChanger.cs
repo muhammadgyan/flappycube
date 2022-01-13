@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
 
 public enum EnumGameState
 {
@@ -17,5 +16,6 @@ public class FlappyCubeGameStateChanger
     public void ChangeState(EnumGameState state)
     {
         GameState = state;
+        Debug.Log("Change State : " + GameState);
     }
 }

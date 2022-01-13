@@ -4,19 +4,19 @@ using System.Collections.Generic;
 using MessagePipe;
 using TMPro;
 using UnityEngine;
-using Zenject;
+using VContainer.Unity;
 
 public class PointScoring : IInitializable, IDisposable
 {
     public int Score { get; private set; }
-    private TextMeshProUGUI scoreText;
+    private View_ScoreText scoreText;
     private ISubscriber<string> scoreSubscriber;
     private IDisposable subscriberDisposable;
     
-    public PointScoring(TextMeshProUGUI scoreText, MessagePipeManager messagePipeManager)
+    public PointScoring(View_ScoreText scoreText, ISubscriber<string> subcsriber)
     {
         this.scoreText = scoreText;
-        this.scoreSubscriber = messagePipeManager.stringSubscriber;
+        this.scoreSubscriber = subcsriber;
     }
     
     public void Initialize()
@@ -40,7 +40,7 @@ public class PointScoring : IInitializable, IDisposable
 
     void SetScoreText(string msg)
     {
-        scoreText.text = msg;
+        scoreText.SetScore(msg);
     }
 
     public void Dispose()

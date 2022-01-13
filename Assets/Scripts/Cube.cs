@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using MessagePipe;
 using UnityEngine;
-using Zenject;
+using VContainer;
 
 public class Cube : MonoBehaviour
 {

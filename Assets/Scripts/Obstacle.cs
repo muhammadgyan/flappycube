@@ -2,17 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
+using VContainer;
 
 public class Obstacle : MonoBehaviour
 {
-    private ObstacleMover mover;
     private FlappyCubeSettings settings;    
     
     [Inject]
     public void Init(ObstacleMover mover, FlappyCubeSettings settings)
     {
-        this.mover = mover;
         this.settings = settings;
     }
 
@@ -23,11 +21,11 @@ public class Obstacle : MonoBehaviour
         this.transform.position = startPos;
     }
 
-    public class Factory : PlaceholderFactory<Obstacle>
-    {
-        public override Obstacle Create()
-        {
-            return base.Create();
-        }
-    }
+    // public class Factory : PlaceholderFactory<Obstacle>
+    // {
+    //     public override Obstacle Create()
+    //     {
+    //         return base.Create();
+    //     }
+    // }
 }

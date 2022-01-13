@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using MessagePipe;
 using UnityEngine;
-using Zenject;
+using VContainer.Unity;
 
 public class ObstacleCollision : IInitializable, IDisposable
 {
@@ -11,12 +11,14 @@ public class ObstacleCollision : IInitializable, IDisposable
     private FlappyCubeGameStateChanger stateChanger;
     private ISubscriber<string> stringSubscriber;
     private IDisposable subscriberDisposable;
+    private IPublisher<EnumGameState> statePublisher;
     
-    public ObstacleCollision(Rigidbody cube, FlappyCubeGameStateChanger stateChanger, MessagePipeManager messagePipeManager)
+    public ObstacleCollision(Rigidbody cube, FlappyCubeGameStateChanger stateChanger, ISubscriber<string> subscriber, IPublisher<EnumGameState> statePublisher)
     {
         this.stateChanger = stateChanger;
         this.cube = cube;
-        this.stringSubscriber = messagePipeManager.stringSubscriber;
+        this.stringSubscriber = subscriber;
+        this.statePublisher = statePublisher;
     }
     
     void Collide()
@@ -25,6 +27,7 @@ public class ObstacleCollision : IInitializable, IDisposable
         {
             cube.velocity = Vector3.zero;
             stateChanger.ChangeState(EnumGameState.Dead);
+            statePublisher.Publish(EnumGameState.Play);
         }
     }
 
