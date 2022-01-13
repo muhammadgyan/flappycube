@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
+using VContainer;
+using VContainer.Unity;
 
 public class CubeMover : IInitializable, ITickable
 {
     private FlappyCubeSettings settings;
     private GameObject Cube;
 
-    public CubeMover([Inject(Id = "Player")]GameObject cube, FlappyCubeSettings settings)
+    public CubeMover(GameObject cube, FlappyCubeSettings settings)
     {
         this.Cube = cube;
         this.settings = settings;

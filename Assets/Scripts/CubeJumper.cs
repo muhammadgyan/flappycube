@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
+using VContainer.Unity;
 
 public class CubeJumper : ITickable, IFixedTickable
 {

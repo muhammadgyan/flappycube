@@ -1,20 +1,19 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
+using VContainer.Unity;
 
 public class ObstacleSpawner : ITickable
 {
-    private FlappyCubeSettings _settings;
     float _timeToNextSpawn;
     float _timeIntervalBetweenSpawns;
-    private Obstacle.Factory obstacleFactory;
+    private Func<Obstacle> obstacleFactory;
     private ObstacleGroup group;
     private FlappyCubeGameStateChanger stateChanger;
     
-    public ObstacleSpawner(FlappyCubeSettings settings, Obstacle.Factory obsFactory, ObstacleGroup group, FlappyCubeGameStateChanger stateChanger)
+    public ObstacleSpawner(FlappyCubeSettings settings, Func<Obstacle> obsFactory, ObstacleGroup group, FlappyCubeGameStateChanger stateChanger)
     {
-        this._settings = settings;
         _timeToNextSpawn = settings.ObstacleSpawnTimer;
         _timeIntervalBetweenSpawns = settings.ObstacleSpawnTimer;
         obstacleFactory = obsFactory;
@@ -37,7 +36,7 @@ public class ObstacleSpawner : ITickable
     
     public void SpawnNext()
     {
-        var asteroid = obstacleFactory.Create();
+        var asteroid = obstacleFactory();
         group.AddObstacle(asteroid.gameObject);
     }
 }

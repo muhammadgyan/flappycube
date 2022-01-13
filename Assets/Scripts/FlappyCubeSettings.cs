@@ -1,8 +1,7 @@
 using UnityEngine;
-using Zenject;
 
-[CreateAssetMenu(fileName = "CubeMoverSettings", menuName = "Installers/FlappyCubeSettings")]
-public class FlappyCubeSettings : ScriptableObjectInstaller<FlappyCubeSettings>
+[CreateAssetMenu(fileName = "CubeMoverSettings", menuName = "FlappyCubeSettings")]
+public class FlappyCubeSettings : ScriptableObject
 {
     public Vector3 StartPos;
     public float MoveSpeed;
@@ -17,8 +16,4 @@ public class FlappyCubeSettings : ScriptableObjectInstaller<FlappyCubeSettings>
     
     public float ObstacleMoveSpeed;
     public float ObstacleSpawnTimer;
-    public override void InstallBindings()
-    {
-        Container.BindInstance(this);
-    }
 }

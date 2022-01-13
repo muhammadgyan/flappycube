@@ -1,23 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using MessagePipe;
 using UnityEngine;
-using Zenject;
+using VContainer.Unity;
 
 public class GameInitializer : IInitializable, ITickable
 {
     private FlappyCubeGameStateChanger _stateChanger;
-    private GameObject instructionPanelGO;
-    
-    public GameInitializer([Inject(Id = "InstructionPanel")] GameObject panelGO, FlappyCubeGameStateChanger stateChanger)
+    private IPublisher<EnumGameState> statePublisher;
+    public GameInitializer(FlappyCubeGameStateChanger stateChanger, IPublisher<EnumGameState> statePublisher)
     {
         this._stateChanger = stateChanger;
-        instructionPanelGO = panelGO;
+        this.statePublisher = statePublisher;
     }
     
     public void Initialize()
     {
         _stateChanger.ChangeState(EnumGameState.Idle);
-        instructionPanelGO.SetActive(true);
+        statePublisher.Publish(EnumGameState.Idle);
     }
 
     public void Tick()
@@ -25,7 +25,8 @@ public class GameInitializer : IInitializable, ITickable
         if (Input.GetKeyDown(KeyCode.Space) && _stateChanger.GameState == EnumGameState.Idle)
         {
             _stateChanger.ChangeState(EnumGameState.Play);
-            instructionPanelGO.SetActive(false);
+            statePublisher.Publish(EnumGameState.Play);
         }
     }
+
 }
