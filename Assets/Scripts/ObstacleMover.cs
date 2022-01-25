@@ -23,7 +23,8 @@ public class ObstacleMover : ITickable
             GameObject[] allObstacle = group.Obstacles.ToArray();
             foreach (GameObject gameObject in allObstacle)
             {
-                gameObject.transform.position += Vector3.left * settings.ObstacleMoveSpeed * Time.deltaTime;
+                if(gameObject != null)
+                    gameObject.transform.position += Vector3.left * settings.ObstacleMoveSpeed * Time.deltaTime;
 
             }
         }

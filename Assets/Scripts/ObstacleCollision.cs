@@ -27,7 +27,7 @@ public class ObstacleCollision : IInitializable, IDisposable
         {
             cube.velocity = Vector3.zero;
             stateChanger.ChangeState(EnumGameState.Dead);
-            statePublisher.Publish(EnumGameState.Play);
+            statePublisher.Publish(EnumGameState.Dead);
         }
     }
 

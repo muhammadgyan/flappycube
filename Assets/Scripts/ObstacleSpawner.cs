@@ -60,4 +60,13 @@ public class ObstacleGroup
             Obstacles.Remove(go);
         }
     }
+
+    public void ClearObstacle()
+    {
+        GameObject[] obstacles = Obstacles.ToArray();
+        foreach (GameObject gameObject in obstacles)
+        {
+            GameObject.Destroy(gameObject);
+        }
+    }
 }

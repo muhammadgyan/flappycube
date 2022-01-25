@@ -26,6 +26,8 @@ public class FlappyCubeLifetimeScope : LifetimeScope
         builder.RegisterMessageBroker<EnumGameState>(options);
 
         builder.RegisterComponentInHierarchy<View_InstructionPanel>();
+        builder.RegisterComponentInHierarchy<View_GameOverPanel>();
+        
         builder.RegisterComponent(Cube);
         builder.RegisterInstance(Cube.gameObject);
         builder.RegisterInstance(Cube.gameObject.GetComponent<Rigidbody>());
