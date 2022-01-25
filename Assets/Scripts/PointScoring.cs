@@ -30,6 +30,14 @@ public class PointScoring : IInitializable, IDisposable
     {
         if (obj == "Point Scored")
             AddScore();
+        else if (obj == "Point Reset")
+            ResetScore();
+    }
+
+    private void ResetScore()
+    {
+        Score = 0;
+        SetScoreText(Score.ToString());
     }
 
     void AddScore()

@@ -11,17 +11,19 @@ public class GameInitializer : IInitializable, ITickable, IDisposable
     private IPublisher<EnumGameState> statePublisher;
     private ISubscriber<EnumGameState> stateSubscriber;
     private IDisposable subscribingObject;
+    private IPublisher<string> stringPublisher;
     
     private ObstacleGroup group;
     private GameObject cube;
     
-    public GameInitializer(GameObject cube, FlappyCubeGameStateChanger stateChanger, IPublisher<EnumGameState> statePublisher, ObstacleGroup obsGroup, ISubscriber<EnumGameState> stateSubscriber)
+    public GameInitializer(GameObject cube, FlappyCubeGameStateChanger stateChanger, IPublisher<EnumGameState> statePublisher, ObstacleGroup obsGroup, ISubscriber<EnumGameState> stateSubscriber, IPublisher<string> strPublisher)
     {
         this.cube = cube;
         this._stateChanger = stateChanger;
         this.statePublisher = statePublisher;
         this.group = obsGroup;
         this.stateSubscriber = stateSubscriber;
+        this.stringPublisher = strPublisher;
     }
     
     public void Initialize()
@@ -44,6 +46,7 @@ public class GameInitializer : IInitializable, ITickable, IDisposable
             group.ClearObstacle();
             _stateChanger.ChangeState(EnumGameState.Play);
             statePublisher.Publish(EnumGameState.Play);
+            stringPublisher.Publish("Point Reset");
         }
     }
 
